@@ -31,7 +31,7 @@ const SavedQueriesSelector: React.FC<Props> = ({
         <MenuItem value={"0"}>None</MenuItem>
         {queriesArr.map((query, index) => (
           <MenuItem key={index} value={query}>
-            {query}
+            {query.toLocaleUpperCase()}
           </MenuItem>
         ))}
       </Select>

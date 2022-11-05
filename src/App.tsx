@@ -28,8 +28,9 @@ const App: React.FC = () => {
   });
 
   const handleOnClickSaveGiph = (giphData: GiphData) => {
-    if (Object.keys(mapSavedQueries).includes(inputQuery)) {
-      const alreadyExist = mapSavedQueries[inputQuery].find(
+    const queryLowerCase = inputQuery.toLowerCase();
+    if (Object.keys(mapSavedQueries).includes(queryLowerCase)) {
+      const alreadyExist = mapSavedQueries[queryLowerCase].find(
         (giph) => giph.id === giphData.id
       );
       if (alreadyExist) {
@@ -38,9 +39,9 @@ const App: React.FC = () => {
       } else {
         const updatedMap = {
           ...mapSavedQueries,
-          [inputQuery]: [
-            ...mapSavedQueries[inputQuery],
-            { ...giphData, category: inputQuery },
+          [queryLowerCase]: [
+            ...mapSavedQueries[queryLowerCase],
+            { ...giphData, category: queryLowerCase },
           ],
         };
         setMapSavedQueries(updatedMap);
@@ -49,7 +50,7 @@ const App: React.FC = () => {
     } else {
       const updatedMap = {
         ...mapSavedQueries,
-        [inputQuery]: [{ ...giphData, category: inputQuery }],
+        [queryLowerCase]: [{ ...giphData, category: queryLowerCase }],
       };
       setMapSavedQueries(updatedMap);
       localStorage.setItem("mapSavedQueries", JSON.stringify(updatedMap));
@@ -99,7 +100,7 @@ const App: React.FC = () => {
 
   const getQueriesKeys = () => {
     const set = new Set<string>(Object.keys(mapSavedQueries));
-    return Array.from(set);
+    return Array.from(set).sort((a, b) => a.localeCompare(b));
   };
 
   const riseAlert = (message: string, severityInfo: severityInfo) => {
@@ -108,7 +109,7 @@ const App: React.FC = () => {
       open: true,
       severityInfo: severityInfo,
       messageInfo: message,
-      time: 6000,
+      time: 4000,
     });
   };
 
