@@ -55,7 +55,7 @@ const App: React.FC = () => {
       setMapSavedQueries(updatedMap);
       localStorage.setItem("mapSavedQueries", JSON.stringify(updatedMap));
     }
-    riseAlert("Saved to your collection", "success");
+    riseAlert(`Saved to your collection ${queryLowerCase.toUpperCase()}`, "success");
   };
 
   const handleOnClickDeleteGiph = (giphData: GiphData) => {
@@ -125,6 +125,8 @@ const App: React.FC = () => {
     setIsLoading(false);
   }, []);
 
+  console.log("rendered");
+  
   if (isLoading) {
     return <LoaderSpinner />;
   }
