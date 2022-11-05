@@ -15,8 +15,8 @@ export type severityInfo = 'success' | 'info' | 'warning' | 'error' | undefined;
 
 
 interface Props {
-    alertPopup: AlertToastProps,
-    closeAlert: React.SyntheticEvent<any> | Event | any
+    alertPopup: AlertToastProps;
+    closeAlert: () => void;
 }
 
 

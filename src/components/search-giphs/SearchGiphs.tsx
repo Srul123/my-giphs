@@ -1,9 +1,10 @@
 import { Button, TextField } from "@mui/material";
 import axios from "axios";
 import React from "react";
+import { GiphData } from "../../interfaces/types";
 
 interface Props {
-  setDataGiphs: React.Dispatch<React.SetStateAction<any>>;
+  setDataGiphs: React.Dispatch<React.SetStateAction<GiphData[]>>;
   setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
   inputQuery: string;
   setInputQuery: React.Dispatch<React.SetStateAction<string>>;

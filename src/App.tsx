@@ -13,8 +13,8 @@ import AlertToast, {
 } from "./components/alert-toast/AlertToast";
 import { severityInfo } from "./components/alert-toast/AlertToast";
 const App: React.FC = () => {
-  const [dataGiphs, setDataGiphs] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [dataGiphs, setDataGiphs] = useState<GiphData[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [inputQuery, setInputQuery] = useState("");
   const [notFound, setNotFound] = useState(false);
   const [mapSavedQueries, setMapSavedQueries] = useState<SavedQueries>({});
@@ -90,8 +90,8 @@ const App: React.FC = () => {
   useEffect(() => {
     const mapSavedQueriesFromLocalStorage: any = localStorage.getItem("mapSavedQueries");
     const mapSavedQueriesList: SavedQueries = JSON.parse(mapSavedQueriesFromLocalStorage);
-    // debugger;
     setMapSavedQueries(mapSavedQueriesList);
+    setIsLoading(false);
   }, []);
 
   if (isLoading) {
@@ -111,10 +111,7 @@ const App: React.FC = () => {
         {notFound ? (
           <div>
             <Typography variant="h5" color={"red"} align={"center"}>
-              Not found any giph that match your input{" "}
-              <span style={{ fontWeight: "bolder", color: "black" }}>
-                {inputQuery}
-              </span>
+              Not found any giph that match your input
             </Typography>
           </div>
         ) : (
