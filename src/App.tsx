@@ -125,8 +125,6 @@ const App: React.FC = () => {
     setIsLoading(false);
   }, []);
 
-  console.log("rendered");
-  
   if (isLoading) {
     return <LoaderSpinner />;
   }
