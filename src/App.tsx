@@ -115,10 +115,12 @@ const App: React.FC = () => {
   useEffect(() => {
     const mapSavedQueriesFromLocalStorage: any =
       localStorage.getItem("mapSavedQueries");
-    const mapSavedQueriesList: SavedQueries = JSON.parse(
-      mapSavedQueriesFromLocalStorage
-    );
-    if (mapSavedQueriesList) setMapSavedQueries(mapSavedQueriesList);
+    if (mapSavedQueriesFromLocalStorage) {
+      const mapSavedQueriesList: SavedQueries = JSON.parse(
+        mapSavedQueriesFromLocalStorage
+      );
+      setMapSavedQueries(mapSavedQueriesList);
+    }
     setIsLoading(false);
   }, []);
 
