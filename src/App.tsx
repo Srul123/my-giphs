@@ -1,5 +1,5 @@
 import { Container, CssBaseline, Grid, Typography } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.scss";
 import LoaderSpinner from "./components/loader-spinner/LoaderSpinner";
 import SearchGiphs from "./components/search-giphs/SearchGiphs";
@@ -34,19 +34,23 @@ const App: React.FC = () => {
         alert(`Already exists in your collection ${inputQuery}`);
         return;
       } else {
-        setMapSavedQueries({
+        const updatedMap = {
           ...mapSavedQueries,
           [inputQuery]: [
             ...mapSavedQueries[inputQuery],
             { ...giphData, category: inputQuery },
           ],
-        });
+        };
+        setMapSavedQueries(updatedMap);
+        localStorage.setItem("mapSavedQueries", JSON.stringify(updatedMap));
       }
     } else {
-      setMapSavedQueries({
+      const updatedMap = {
         ...mapSavedQueries,
         [inputQuery]: [{ ...giphData, category: inputQuery }],
-      });
+      };
+      setMapSavedQueries(updatedMap);
+      localStorage.setItem("mapSavedQueries", JSON.stringify(updatedMap));
     }
     riseAlert("Saved to your collection", "success");
   };
@@ -57,11 +61,13 @@ const App: React.FC = () => {
     if (listItems.length === 0) {
       delete mapSavedQueries[giphData.category];
       setMapSavedQueries({ ...mapSavedQueries });
+      localStorage.setItem("mapSavedQueries", JSON.stringify(mapSavedQueries));
     } else {
       setMapSavedQueries({
         ...mapSavedQueries,
         [giphData.category]: listItems,
       });
+      localStorage.setItem("mapSavedQueries", JSON.stringify(mapSavedQueries));
     }
     riseAlert("Deleted", "error");
   };
@@ -81,6 +87,13 @@ const App: React.FC = () => {
     });
   };
 
+  useEffect(() => {
+    const mapSavedQueriesFromLocalStorage: any = localStorage.getItem("mapSavedQueries");
+    const mapSavedQueriesList: SavedQueries = JSON.parse(mapSavedQueriesFromLocalStorage);
+    // debugger;
+    setMapSavedQueries(mapSavedQueriesList);
+  }, []);
+
   if (isLoading) {
     return <LoaderSpinner />;
   }
@@ -97,11 +110,7 @@ const App: React.FC = () => {
         />
         {notFound ? (
           <div>
-            <Typography
-              variant="h5"
-              color={"red"}
-              align={"center"}
-            >
+            <Typography variant="h5" color={"red"} align={"center"}>
               Not found any giph that match your input{" "}
               <span style={{ fontWeight: "bolder", color: "black" }}>
                 {inputQuery}
