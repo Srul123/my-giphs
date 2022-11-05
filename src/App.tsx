@@ -1,4 +1,4 @@
-import { Container, CssBaseline, Grid, Typography } from "@mui/material";
+import { Container, CssBaseline, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import "./App.scss";
 import LoaderSpinner from "./components/loader-spinner/LoaderSpinner";
@@ -12,6 +12,8 @@ import AlertToast, {
   AlertToastProps,
 } from "./components/alert-toast/AlertToast";
 import { severityInfo } from "./components/alert-toast/AlertToast";
+import axios from "axios";
+
 const App: React.FC = () => {
   const [dataGiphs, setDataGiphs] = useState<GiphData[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -72,6 +74,29 @@ const App: React.FC = () => {
     riseAlert("Deleted", "error");
   };
 
+  const handleSubmit = async (event: { preventDefault: () => void }) => {
+    event.preventDefault();
+    setIsLoading(true);
+    setNotFound(false);
+    try {
+      const results = await axios.get("https://api.giphy.com/v1/gifs/search", {
+        params: {
+          api_key: "tAEFUgagRjRNkU24orQdFB8EHMcNTUSe",
+          q: inputQuery,
+          limit: 5,
+        },
+      });
+      if (results.data.data.length === 0) {
+        setNotFound(true);
+      }
+      setDataGiphs(results.data.data);
+    } catch (err) {
+      setNotFound(true);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   const getQueriesKeys = () => {
     const set = new Set<string>(Object.keys(mapSavedQueries));
     return Array.from(set);
@@ -88,9 +113,12 @@ const App: React.FC = () => {
   };
 
   useEffect(() => {
-    const mapSavedQueriesFromLocalStorage: any = localStorage.getItem("mapSavedQueries");
-    const mapSavedQueriesList: SavedQueries = JSON.parse(mapSavedQueriesFromLocalStorage);
-    setMapSavedQueries(mapSavedQueriesList);
+    const mapSavedQueriesFromLocalStorage: any =
+      localStorage.getItem("mapSavedQueries");
+    const mapSavedQueriesList: SavedQueries = JSON.parse(
+      mapSavedQueriesFromLocalStorage
+    );
+    if (mapSavedQueriesList) setMapSavedQueries(mapSavedQueriesList);
     setIsLoading(false);
   }, []);
 
@@ -104,9 +132,7 @@ const App: React.FC = () => {
         <SearchGiphs
           inputQuery={inputQuery}
           setInputQuery={setInputQuery}
-          setDataGiphs={setDataGiphs}
-          setIsLoading={setIsLoading}
-          setNotFound={setNotFound}
+          handleSubmit={handleSubmit}
         />
         {notFound ? (
           <div>
