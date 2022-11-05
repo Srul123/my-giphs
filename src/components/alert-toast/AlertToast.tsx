@@ -6,7 +6,7 @@ export interface AlertToastProps {
     open: boolean,
     vertical: "top" | "bottom",
     horizontal: "left" | "center" | "right",
-    severityInfo?:  'success' | 'info' | 'warning' | 'error' | undefined,
+    severityInfo?: severityInfo,
     messageInfo?: string
     time?: number
 }
