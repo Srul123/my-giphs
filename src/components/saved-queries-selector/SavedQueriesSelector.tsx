@@ -18,10 +18,14 @@ const SavedQueriesSelector: React.FC<Props> = ({
   selectedSavedQuery,
   setSelectedSavedQuery,
 }) => {
+    console.log(queriesArr);
+    console.log(selectedSavedQuery);
+    
   return (
     <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
       <InputLabel>Select a Giph from your collection</InputLabel>
       <Select
+        id="select-collection"
         value={selectedSavedQuery ? selectedSavedQuery : "0"}
         onChange={(event: SelectChangeEvent) =>
           setSelectedSavedQuery(event.target.value)

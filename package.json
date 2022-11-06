@@ -49,5 +49,8 @@
   },
   "devDependencies": {
     "sass": "^1.55.0"
+  },
+  "jest": {
+    "transformIgnorePatterns": ["node_modules\/(?!axios)"]
   }
 }

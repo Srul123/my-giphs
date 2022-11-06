@@ -1,6 +1,5 @@
 import { Container, CssBaseline, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
-import "./App.scss";
 import LoaderSpinner from "./components/loader-spinner/LoaderSpinner";
 import SearchGiphs from "./components/search-giphs/SearchGiphs";
 import SavedQueriesSelector from "./components/saved-queries-selector/SavedQueriesSelector";
@@ -13,6 +12,8 @@ import AlertToast, {
 } from "./components/alert-toast/AlertToast";
 import { severityInfo } from "./components/alert-toast/AlertToast";
 import axios from "axios";
+
+const MAP_SAVED_QUERIES = "mapSavedQueries";
 
 const App: React.FC = () => {
   const [dataGiphs, setDataGiphs] = useState<GiphData[]>([]);
@@ -34,7 +35,7 @@ const App: React.FC = () => {
         (giph) => giph.id === giphData.id
       );
       if (alreadyExist) {
-        alert(`Already exists in your collection ${inputQuery}`);
+        alert(`Already exists in your collection ${inputQuery.toUpperCase()}`);
         return;
       } else {
         const updatedMap = {
@@ -45,7 +46,7 @@ const App: React.FC = () => {
           ],
         };
         setMapSavedQueries(updatedMap);
-        localStorage.setItem("mapSavedQueries", JSON.stringify(updatedMap));
+        localStorage.setItem(MAP_SAVED_QUERIES, JSON.stringify(updatedMap));
       }
     } else {
       const updatedMap = {
@@ -53,7 +54,7 @@ const App: React.FC = () => {
         [queryLowerCase]: [{ ...giphData, category: queryLowerCase }],
       };
       setMapSavedQueries(updatedMap);
-      localStorage.setItem("mapSavedQueries", JSON.stringify(updatedMap));
+      localStorage.setItem(MAP_SAVED_QUERIES, JSON.stringify(updatedMap));
     }
     riseAlert(`Saved to your collection ${queryLowerCase.toUpperCase()}`, "success");
   };
@@ -64,13 +65,13 @@ const App: React.FC = () => {
     if (listItems.length === 0) {
       delete mapSavedQueries[giphData.category];
       setMapSavedQueries({ ...mapSavedQueries });
-      localStorage.setItem("mapSavedQueries", JSON.stringify(mapSavedQueries));
+      localStorage.setItem(MAP_SAVED_QUERIES, JSON.stringify(mapSavedQueries));
     } else {
       setMapSavedQueries({
         ...mapSavedQueries,
         [giphData.category]: listItems,
       });
-      localStorage.setItem("mapSavedQueries", JSON.stringify(mapSavedQueries));
+      localStorage.setItem(MAP_SAVED_QUERIES, JSON.stringify(mapSavedQueries));
     }
     riseAlert("Deleted", "error");
   };
@@ -109,13 +110,12 @@ const App: React.FC = () => {
       open: true,
       severityInfo: severityInfo,
       messageInfo: message,
-      time: 4000,
     });
   };
 
   useEffect(() => {
     const mapSavedQueriesFromLocalStorage: any =
-      localStorage.getItem("mapSavedQueries");
+      localStorage.getItem(MAP_SAVED_QUERIES);
     if (mapSavedQueriesFromLocalStorage) {
       const mapSavedQueriesList: SavedQueries = JSON.parse(
         mapSavedQueriesFromLocalStorage

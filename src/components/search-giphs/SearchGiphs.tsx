@@ -14,10 +14,11 @@ const SearchGiphs: React.FC<Props> = ({
 }) => {
   return (
     <div>
-      <form onSubmit={handleSubmit}>
+      <form id="form-search-giphs" onSubmit={handleSubmit}>
         <div style={{ marginBottom: "1vh" }}>
           <TextField
             fullWidth
+            id="query-input"
             type="text"
             value={inputQuery}
             onChange={(e) => setInputQuery(e.target.value)}
@@ -26,7 +27,7 @@ const SearchGiphs: React.FC<Props> = ({
           />
         </div>
         <div>
-          <Button fullWidth type="submit" variant="contained">
+          <Button id="button-submit" fullWidth type="submit" variant="contained">
             Submit
           </Button>
         </div>
