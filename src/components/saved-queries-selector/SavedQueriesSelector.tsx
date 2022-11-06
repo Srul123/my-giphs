@@ -1,3 +1,4 @@
+import React from "react";
 import {
   FormControl,
   InputLabel,
@@ -5,7 +6,6 @@ import {
   Select,
   SelectChangeEvent,
 } from "@mui/material";
-import React from "react";
 
 interface Props {
   queriesArr: string[];
@@ -18,12 +18,9 @@ const SavedQueriesSelector: React.FC<Props> = ({
   selectedSavedQuery,
   setSelectedSavedQuery,
 }) => {
-    console.log(queriesArr);
-    console.log(selectedSavedQuery);
-    
   return (
     <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
-      <InputLabel>Select a Giph from your collection</InputLabel>
+      <InputLabel>Select a GIF from your collection</InputLabel>
       <Select
         id="select-collection"
         value={selectedSavedQuery ? selectedSavedQuery : "0"}

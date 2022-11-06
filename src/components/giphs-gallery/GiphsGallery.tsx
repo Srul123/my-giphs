@@ -1,3 +1,4 @@
+import React from "react";
 import {
   IconButton,
   ImageList,
@@ -5,7 +6,6 @@ import {
   ImageListItemBar,
   Tooltip,
 } from "@mui/material";
-import React from "react";
 import { GiphData } from "../../interfaces/types";
 
 interface Props {

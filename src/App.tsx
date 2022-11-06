@@ -1,5 +1,5 @@
+import React, { useEffect, useState } from "react";
 import { Container, CssBaseline, Typography } from "@mui/material";
-import { useEffect, useState } from "react";
 import LoaderSpinner from "./components/loader-spinner/LoaderSpinner";
 import SearchGiphs from "./components/search-giphs/SearchGiphs";
 import SavedQueriesSelector from "./components/saved-queries-selector/SavedQueriesSelector";
@@ -56,7 +56,10 @@ const App: React.FC = () => {
       setMapSavedQueries(updatedMap);
       localStorage.setItem(MAP_SAVED_QUERIES, JSON.stringify(updatedMap));
     }
-    riseAlert(`Saved to your collection ${queryLowerCase.toUpperCase()}`, "success");
+    riseAlert(
+      `Saved to your collection ${queryLowerCase.toUpperCase()}`,
+      "success"
+    );
   };
 
   const handleOnClickDeleteGiph = (giphData: GiphData) => {
@@ -113,6 +116,29 @@ const App: React.FC = () => {
     });
   };
 
+  const resultQuery = () => {
+    if (notFound) {
+      return (
+        <div>
+          <Typography variant="h5" color={"red"} align={"center"}>
+            Not found any giph that match your input
+          </Typography>
+        </div>
+      );
+    } else {
+      return (
+        <GiphsGallery
+          giphsDataList={dataGiphs}
+          callBack={handleOnClickSaveGiph}
+          callBackTooltip={"Save"}
+          cols={dataGiphs.length}
+        >
+          <SaveIcon />
+        </GiphsGallery>
+      );
+    }
+  };
+
   useEffect(() => {
     const mapSavedQueriesFromLocalStorage: any =
       localStorage.getItem(MAP_SAVED_QUERIES);
@@ -137,22 +163,7 @@ const App: React.FC = () => {
           setInputQuery={setInputQuery}
           handleSubmit={handleSubmit}
         />
-        {notFound ? (
-          <div>
-            <Typography variant="h5" color={"red"} align={"center"}>
-              Not found any giph that match your input
-            </Typography>
-          </div>
-        ) : (
-          <GiphsGallery
-            giphsDataList={dataGiphs}
-            callBack={handleOnClickSaveGiph}
-            callBackTooltip={"Save"}
-            cols={dataGiphs.length}
-          >
-            <SaveIcon />
-          </GiphsGallery>
-        )}
+        {resultQuery()}
         <SavedQueriesSelector
           queriesArr={getQueriesKeys()}
           selectedSavedQuery={selectedSavedQuery}

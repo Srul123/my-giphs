@@ -1,5 +1,5 @@
-import { Button, TextField } from "@mui/material";
 import React from "react";
+import { Button, TextField } from "@mui/material";
 
 interface Props {
   inputQuery: string;
