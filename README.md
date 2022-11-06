@@ -3,10 +3,6 @@
   ![image](https://user-images.githubusercontent.com/31043411/200139586-54b78ed0-c527-42ee-86ce-c75b3c392c5a.png)
 
 
-## Available Scripts
-
-In the project directory, you can run:
-
 ## Instructions:
     git clone https://github.com/Srul123/my-giphs.git
     cd my-giphs
