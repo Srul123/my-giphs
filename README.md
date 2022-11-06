@@ -1,4 +1,4 @@
-## My Giphs App - Search and save your favorite Giphs
+## My Giphs App - Search and save your favorite GIFS
 
   ![image](https://user-images.githubusercontent.com/31043411/200139586-54b78ed0-c527-42ee-86ce-c75b3c392c5a.png)
 
