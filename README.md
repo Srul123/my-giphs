@@ -3,22 +3,12 @@
   ![image](https://user-images.githubusercontent.com/31043411/200139586-54b78ed0-c527-42ee-86ce-c75b3c392c5a.png)
 
 
-## Available Scripts
+## Instructions:
+    git clone https://github.com/Srul123/my-giphs.git
+    cd my-giphs
+    npm install
+    npm start 
 
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
+open http://localhost:3000 in your browser
 
 ## ![image](https://user-images.githubusercontent.com/31043411/200139434-3b544428-bfc8-4cbb-8d4d-81675ef3781e.png)
