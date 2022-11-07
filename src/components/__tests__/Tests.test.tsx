@@ -13,9 +13,9 @@ test("Test SearchGiphs Component", () => {
       handleSubmit={() => "test"}
     />
   );
-  const inputQuery = getById(dom.container, "query-input") as HTMLInputElement;
+  const input = getById(dom.container, "query-input") as HTMLInputElement;
 
-  expect(inputQuery.value).toBe(queryPropsTest);
+  expect(input.value).toBe(queryPropsTest);
 });
 
 test("Test SavedQueriesSelector Component", () => {
@@ -31,6 +31,7 @@ test("Test SavedQueriesSelector Component", () => {
 
   const select = getById(container, "select-collection") as HTMLInputElement;
   expect(select ? true : false).toBe(true);
+// to do: continue...
+
 });
 
-// to do: continue

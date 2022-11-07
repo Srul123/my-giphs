@@ -35,7 +35,7 @@ const App: React.FC = () => {
         (giph) => giph.id === giphData.id
       );
       if (alreadyExist) {
-        alert(`Already exists in your collection ${inputQuery.toUpperCase()}`);
+        riseAlert(`Already exists in your collection ${inputQuery.toUpperCase()}`, "error");
         return;
       } else {
         const updatedMap = {
@@ -76,7 +76,7 @@ const App: React.FC = () => {
       });
       localStorage.setItem(MAP_SAVED_QUERIES, JSON.stringify(mapSavedQueries));
     }
-    riseAlert("Deleted", "error");
+    riseAlert("Deleted GIF", "success");
   };
 
   const handleSubmit = async (event: { preventDefault: () => void }) => {
